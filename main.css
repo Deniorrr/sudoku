@@ -15,6 +15,11 @@ body {
 .wynik {
     display: flex;
     justify-content: center;
+    padding: 5px;
+}
+
+#prompt {
+    text-align: center;
 }
 
 .wynik td {
