@@ -154,9 +154,12 @@ class Sudoku{
                 break;
             }
         }
+        if(this.onetile){
+            this.find_intile();
+        }
         if(this.onetile)
         {
-            document.getElementById("prompt").innerHTML = "I can't solve this case";
+            document.getElementById("prompt").innerHTML = "I can't find anything";
         }
     }
     find_many_tiles(k){
@@ -166,6 +169,7 @@ class Sudoku{
             this.find_incolumn(k);
             this.find_insquare(k);
         }
+        this.find_intile();
     }
     find_inrow(k){
         for(let j = 0; j<9; j++)
@@ -185,8 +189,10 @@ class Sudoku{
             {
                 document.getElementById("t" + possible_tile).value = k;
                 sudoku.set_table();
-                this.onetile = false
-                break;
+                if(this.onetile){
+                    this.onetile = false
+                    break;
+                }
             }
         }
     }
@@ -208,8 +214,10 @@ class Sudoku{
             {
                 document.getElementById("t" + possible_tile).value = k;
                 sudoku.set_table();
-                this.onetile = false
-                break;
+                if(this.onetile){
+                    this.onetile = false
+                    break;
+                }
             }
         }
     }
@@ -221,7 +229,6 @@ class Sudoku{
             let i = 0;
             for(i = 0; i<9; i++)
             {
-                console.log(this.squares[j][i])
                 if(!this.tilemap[k][this.squares[j][i]])
                 {
                     possibilities+=1;
@@ -232,10 +239,33 @@ class Sudoku{
             {
                 document.getElementById("t" + possible_tile).value = k;
                 sudoku.set_table();
-                this.onetile = false
-                break;
+                if(this.onetile){
+                    this.onetile = false
+                    break;
+                }
             }
-        console.log("next")
+        }
+    }
+    find_intile(){
+        for(let j = 0; j<81; j++)
+        {
+            let possibilities = 0;
+            let possible_digit = -1
+            for(let i = 1; i<=9; i++){
+                if(!this.tilemap[i][j]){
+                    possibilities+=1;
+                    possible_digit = i;
+                }
+            }
+            if(possibilities==1)
+            {
+                document.getElementById("t" + j).value = possible_digit;
+                sudoku.set_table();
+                if(this.onetile){
+                    this.onetile = false
+                    break;
+                }
+            } 
         }
     }
 }
@@ -253,6 +283,10 @@ document.getElementById("znajdz").addEventListener('click', ()=>{
 
 document.getElementById("znajdz_jeden").addEventListener('click', ()=>{
     sudoku.find_one_tile();
+}) 
+
+document.getElementById("clear").addEventListener('click', ()=>{
+    location.reload();
 }) 
 
 function b(k){
