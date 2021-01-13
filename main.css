@@ -12,7 +12,7 @@ body {
 }
 
 .container,
-.wynik {
+.devtool {
     display: flex;
     justify-content: center;
     padding: 5px;
@@ -27,7 +27,7 @@ body {
     border-color: red;
 }
 
-.wynik td {
+.devtool td {
     height: 30px;
     width: 30px;
     text-align: center;
@@ -89,4 +89,8 @@ input[type=button]:active {
 
 #clear:active {
     background-color: #f00;
+}
+
+input[type=number]:focus {
+    background-color: #444;
 }
